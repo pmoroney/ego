@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"regexp"
 
-	"github.com/benbjohnson/ego"
+	"github.com/pmoroney/ego"
 )
 
 // version is set by the makefile during build.

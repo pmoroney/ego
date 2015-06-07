@@ -188,7 +188,7 @@ type PrintBlock struct {
 
 func (b *PrintBlock) write(buf *bytes.Buffer) error {
 	b.Pos.write(buf)
-	fmt.Fprintf(buf, `_, _ = fmt.Fprint(w, html.EscapeString(fmt.Sprintf("%%v", %s)))`+"\n", b.Content)
+	fmt.Fprintf(buf, `_ = xml.EscapeText(w,[]byte(fmt.Sprintf("%%v", %s)))`+"\n", b.Content)
 	return nil
 }
 
@@ -261,8 +261,8 @@ func (p *Package) writeHeader(w io.Writer) error {
 	fmt.Fprintln(&buf, `"fmt"`)
 	for _, t := range p.Templates {
 		if t.hasEscapedPrintBlock() {
-			fmt.Fprintln(&buf, `"html"`)
-			decls["html"] = true
+			fmt.Fprintln(&buf, `"encoding/xml"`)
+			decls["encoding/xml"] = true
 			break
 		}
 	}
